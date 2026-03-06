@@ -42,3 +42,15 @@ formulario.addEventListener("submit", function(e) {
 // limpiar campo
     inputTitulo.value = "";
 });
+
+//Eliminar tarjetas
+listaTareas.addEventListener("click", function(e) {
+
+    if (e.target.dataset.action === "del") {
+
+        const tarjeta = e.target.closest(".card");
+
+        tarjeta.remove();
+    }
+
+});
