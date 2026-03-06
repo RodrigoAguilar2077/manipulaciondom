@@ -54,3 +54,24 @@ listaTareas.addEventListener("click", function(e) {
     }
 
 });
+
+//Marcar como finaliada
+listaTareas.addEventListener("click", function(e) {
+
+    // eliminar tarea
+    if (e.target.dataset.action === "del") {
+
+        const tarjeta = e.target.closest(".card");
+        tarjeta.remove();
+
+    }
+
+    // marcar como completada
+    if (e.target.dataset.action === "done") {
+
+        const tarjeta = e.target.closest(".card");
+        tarjeta.classList.toggle("done");
+
+    }
+
+});
