@@ -9,6 +9,7 @@ const btnLimpiarBuscar = document.getElementById("btnLimpiarBuscar");
 const statTotal = document.getElementById("statTotal");
 const statVisibles = document.getElementById("statVisibles");
 const statFavs = document.getElementById("statFavs");
+const mensajeVacio = document.getElementById("emptyState");
 let filtroActivo = "all";
 
 
@@ -234,5 +235,15 @@ function actualizarEstadisticas(){
     statVisibles.textContent = visibles;
     statFavs.textContent = favoritas;
 
+
+
+
+
+    // estado vacio
+    if (visibles === 0) {
+    mensajeVacio.classList.remove("is-hidden");
+} else {
+    mensajeVacio.classList.add("is-hidden");
+}
 }
 actualizarEstadisticas();
