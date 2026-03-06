@@ -6,6 +6,9 @@ const listaTareas = document.getElementById("listaTareas");
 const filtros = document.querySelectorAll(".chip");
 const inputBuscar = document.getElementById("inputBuscar");
 const btnLimpiarBuscar = document.getElementById("btnLimpiarBuscar");
+const statTotal = document.getElementById("statTotal");
+const statVisibles = document.getElementById("statVisibles");
+const statFavs = document.getElementById("statFavs");
 let filtroActivo = "all";
 
 
@@ -43,6 +46,7 @@ formulario.addEventListener("submit", function(e) {
 
     // agregar tarea a la lista
     listaTareas.appendChild(nuevaTarea);
+    actualizarEstadisticas();
 
     // limpiar campo
     inputTitulo.value = "";
@@ -57,6 +61,7 @@ listaTareas.addEventListener("click", function(e) {
 
         const tarjeta = e.target.closest(".card");
         tarjeta.remove();
+        actualizarEstadisticas();
 
     }
 
@@ -87,8 +92,9 @@ listaTareas.addEventListener("click", function(e) {
             boton.textContent = "★";
 
         }
-
+actualizarEstadisticas();
     }
+    
 
 });
 
@@ -126,8 +132,8 @@ filtros.forEach(function(boton){
                 tarea.style.display = categoria === filtro ? "block" : "none";
 
             }
-
         });
+actualizarEstadisticas();
 
     });
 
@@ -166,7 +172,7 @@ inputBuscar.addEventListener("input", function(){
         }
 
     });
-
+actualizarEstadisticas();
 });
 
 // Limpiar búsqueda
@@ -200,5 +206,33 @@ btnLimpiarBuscar.addEventListener("click", function(){
         }
 
     });
-
+actualizarEstadisticas();
 });
+
+// Actualizar estadísticas
+function actualizarEstadisticas(){
+
+    const tareas = document.querySelectorAll(".card");
+
+    let total = tareas.length;
+    let visibles = 0;
+    let favoritas = 0;
+
+    tareas.forEach(function(tarea){
+
+        if (tarea.style.display !== "none") {
+            visibles++;
+        }
+
+        if (tarea.dataset.fav === "1") {
+            favoritas++;
+        }
+
+    });
+
+    statTotal.textContent = total;
+    statVisibles.textContent = visibles;
+    statFavs.textContent = favoritas;
+
+}
+actualizarEstadisticas();
