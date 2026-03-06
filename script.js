@@ -1,4 +1,4 @@
-//  Agregar nuevas tareas
+// Agregar nuevas tareas
 const formulario = document.getElementById("formTarea");
 const inputTitulo = document.getElementById("inputTitulo");
 const selectTag = document.getElementById("selectTag");
@@ -43,22 +43,11 @@ formulario.addEventListener("submit", function(e) {
     inputTitulo.value = "";
 });
 
-//Eliminar tarjetas
+
+// Manipulación de tareas (eliminar, completar, favoritas)
 listaTareas.addEventListener("click", function(e) {
 
-    if (e.target.dataset.action === "del") {
-
-        const tarjeta = e.target.closest(".card");
-
-        tarjeta.remove();
-    }
-
-});
-
-//Marcar como finaliada
-listaTareas.addEventListener("click", function(e) {
-
-    // eliminar tarea
+// Eliminar tareas
     if (e.target.dataset.action === "del") {
 
         const tarjeta = e.target.closest(".card");
@@ -66,11 +55,33 @@ listaTareas.addEventListener("click", function(e) {
 
     }
 
-    // marcar como completada
+// Marcar como completada
     if (e.target.dataset.action === "done") {
 
         const tarjeta = e.target.closest(".card");
         tarjeta.classList.toggle("done");
+
+    }
+
+// Marcar como favorita
+    if (e.target.dataset.action === "fav") {
+
+        const tarjeta = e.target.closest(".card");
+        const boton = e.target;
+
+        const esFavorita = tarjeta.dataset.fav === "1";
+
+        if (esFavorita) {
+
+            tarjeta.dataset.fav = "0";
+            boton.textContent = "☆";
+
+        } else {
+
+            tarjeta.dataset.fav = "1";
+            boton.textContent = "★";
+
+        }
 
     }
 
