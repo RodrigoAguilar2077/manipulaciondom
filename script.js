@@ -3,7 +3,9 @@ const formulario = document.getElementById("formTarea");
 const inputTitulo = document.getElementById("inputTitulo");
 const selectTag = document.getElementById("selectTag");
 const listaTareas = document.getElementById("listaTareas");
-const filtros = document.querySelectorAll(".chip"); // ← ESTA LÍNEA FALTABA
+const filtros = document.querySelectorAll(".chip");
+const inputBuscar = document.getElementById("inputBuscar");
+let filtroActivo = "all";
 
 
 // Escuchar el envío del formulario
@@ -96,6 +98,7 @@ filtros.forEach(function(boton){
     boton.addEventListener("click", function(){
 
         const filtro = boton.dataset.filter;
+        filtroActivo = filtro;
         const tareas = document.querySelectorAll(".card");
 
         // cambiar botón activo
@@ -124,6 +127,42 @@ filtros.forEach(function(boton){
             }
 
         });
+
+    });
+
+});
+
+// Buscar por texto
+inputBuscar.addEventListener("input", function(){
+
+    const texto = inputBuscar.value.toLowerCase();
+    const tareas = document.querySelectorAll(".card");
+
+    tareas.forEach(function(tarea){
+
+        const titulo = tarea.querySelector(".card__title").textContent.toLowerCase();
+        const categoria = tarea.dataset.tag;
+        const favorita = tarea.dataset.fav === "1";
+
+        let coincideFiltro = false;
+
+        if (filtroActivo === "all") {
+            coincideFiltro = true;
+        } 
+        else if (filtroActivo === "fav") {
+            coincideFiltro = favorita;
+        } 
+        else {
+            coincideFiltro = categoria === filtroActivo;
+        }
+
+        const coincideTexto = titulo.includes(texto);
+
+        if (coincideFiltro && coincideTexto) {
+            tarea.style.display = "block";
+        } else {
+            tarea.style.display = "none";
+        }
 
     });
 
