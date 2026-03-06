@@ -5,6 +5,7 @@ const selectTag = document.getElementById("selectTag");
 const listaTareas = document.getElementById("listaTareas");
 const filtros = document.querySelectorAll(".chip");
 const inputBuscar = document.getElementById("inputBuscar");
+const btnLimpiarBuscar = document.getElementById("btnLimpiarBuscar");
 let filtroActivo = "all";
 
 
@@ -162,6 +163,40 @@ inputBuscar.addEventListener("input", function(){
             tarea.style.display = "block";
         } else {
             tarea.style.display = "none";
+        }
+
+    });
+
+});
+
+// Limpiar búsqueda
+btnLimpiarBuscar.addEventListener("click", function(){
+
+    // borrar texto
+    inputBuscar.value = "";
+
+    // volver a aplicar filtro activo
+    const tareas = document.querySelectorAll(".card");
+
+    tareas.forEach(function(tarea){
+
+        const categoria = tarea.dataset.tag;
+        const favorita = tarea.dataset.fav === "1";
+
+        if (filtroActivo === "all") {
+
+            tarea.style.display = "block";
+
+        } 
+        else if (filtroActivo === "fav") {
+
+            tarea.style.display = favorita ? "block" : "none";
+
+        } 
+        else {
+
+            tarea.style.display = categoria === filtroActivo ? "block" : "none";
+
         }
 
     });
